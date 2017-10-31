@@ -42,9 +42,7 @@ public class CotDolar {
                 System.out.printf("%s\n", dhg.getValorDiaString(qd, qm, qy));
             }
             
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(CotDolar.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (UnsupportedEncodingException ex) {
+        } catch (FileNotFoundException | UnsupportedEncodingException ex) {
             Logger.getLogger(CotDolar.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
