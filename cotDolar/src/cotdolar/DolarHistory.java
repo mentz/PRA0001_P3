@@ -13,6 +13,7 @@ import java.io.UnsupportedEncodingException;
 import java.security.SecureRandom;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -70,6 +71,9 @@ public class DolarHistory {
         if (val < 1) {
             val = Math.sqrt(val);
         }
+        delta = rng.nextDouble();
+        delta -= 0.5;
+        delta = Math.sqrt(delta);
         delta = rng.nextDouble() * dailyMaxDelta;
         val += delta;
         
@@ -116,11 +120,11 @@ public class DolarHistory {
             //System.out.printf("Diferença: %d dias\n", getDaysOffset(varDia, hoje));
             
             if (getDaysOffset(varDia, comeco) < 0 || getDaysOffset(varDia, hoje) > 0)
-            return String.format("Data fora do período amostrado: %2d/%2d/%4d.",
+            return String.format(new Locale("en"), "Data fora do período amostrado: %2d/%2d/%4d.",
                     varDia.get(Calendar.DAY_OF_MONTH), varDia.get(Calendar.MONTH) + 1, varDia.get(Calendar.YEAR));
 
             double cotacaoDoDia = getValorDia(getDaysOffset(varDia, comeco));
-            String ret = String.format("Cotação do dia %2d/%2d/%4d: US$ 1.0000 = R$ %.4f",
+            String ret = String.format(new Locale("en"), "Cotação do dia %2d/%2d/%4d: US$ 1.0000 = R$ %.4f",
                         varDia.get(Calendar.DAY_OF_MONTH), varDia.get(Calendar.MONTH) + 1, varDia.get(Calendar.YEAR),
                         cotacaoDoDia);
 
@@ -138,7 +142,7 @@ public class DolarHistory {
             
             while (getDaysOffset(varDia, hoje) <= 0)
             {
-                dolarHistory.write(String.format("%015.6f\n", generateNext()));
+                dolarHistory.write(String.format(new Locale("en"), "%015.6f\n", generateNext()));
                 varDia.add(Calendar.DAY_OF_MONTH, 1);
             }
             
